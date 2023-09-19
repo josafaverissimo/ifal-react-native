@@ -41,6 +41,7 @@
                         <div>
                             <a class="btn btn-link navbar-brand p-0" href="https://josafaverissimo.github.io/ifal-react-native/">
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/1c/0e/c8/1c0ec875-bf67-ccc9-b127-8544ca50c07b/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp" alt="Logo do ifal" width="50">
+                                <span style="font-size: .9rem">IFAL <span class="text-success">|</span> <span class="fst-italic text-info">React Native</span></span>
                             </a>
                         </div>
 
@@ -55,7 +56,7 @@
                         </div>
 
                         <div class="clock d-flex flex-column align-items-center placeholder-glow">
-                            <span class="time placeholder mb-1"><time datetime="">foobar</time></span>
+                            <span class="time placeholder mb-1"><time datetime="">foobarfoobar</time></span>
                             <span class="date placeholder"><time datetime="placeholder">foo bar foo.bar foo bar</time></span>
                         </div>
                     </div>
@@ -63,14 +64,14 @@
             </div>
         </header>
 
-        <main class="container-fluid">
-            <div class="my-5">
-                <h1 class="text-center"><em>Kiris</em>Calc</h1>
+        <main class="container-lg">
+            <div class="mt-5">
+                <h1><em>Kiris</em>Calc</h1>
             </div>
 
             <div class="row align-items-md-stretch wrapper">
-                <div class="col-md-12 col-lg-6 p-lg-3 mb-md-3">
-                    <div class="h-100 p-5 shadow-lg target">
+                <div class="col-5 p-lg-3 mb-md-3" style="height: 300px">
+                    <div class="h-100 p-5 shadow-lg d-flex flex-column justify-content-center">
                         <h2 class="text-center">Entrada</h2>
 
                         <form id="input-form">
@@ -109,13 +110,17 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 col-lg-6 p-lg-3 mb-md-3">
+                <div class="col-2 d-flex align-items-center justify-content-center">
+                    <div class="p-3">
+                        <img src="https://i.pinimg.com/originals/29/a0/50/29a050d735fa85c5baf82d1bb8a66313.gif" width="200">
+                    </div>
+                </div>
+
+                <div class="col-5 p-lg-3 mb-md-3">
                     <div class="h-100 p-5 shadow-lg target">
                         <h2 class="text-center">Saída</h2>
 
-                        <div id="output-wrapper">
-
-                        </div>
+                        <div id="output-wrapper"></div>
                     </div>
                 </div>
             </div>

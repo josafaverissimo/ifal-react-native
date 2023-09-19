@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trabalhando com arrays</title>
+
+    <link rel="icon" href="https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/1c/0e/c8/1c0ec875-bf67-ccc9-b127-8544ca50c07b/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <style>
+        .my-select select {
+            display: none;
+        }
+
+        .my-select ul ul {
+            height: 250px;
+            overflow-y: auto;
+        }
+
+        .my-select button {
+            min-width: 11rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="d-flex justify-content-center mt-2">
+        <nav class="navbar navbar-expand-lg shadow-lg rounded d-flex justify-content-center px-3" style="width: 90vw">
+            <div class="d-flex w-100 justify-content-between align-items-center">
+                <div>
+                    <a class="btn btn-link navbar-brand p-0" href="https://josafaverissimo.github.io/ifal-react-native/">
+                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/1c/0e/c8/1c0ec875-bf67-ccc9-b127-8544ca50c07b/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp" alt="Logo do ifal" width="50">
+                        <span style="font-size: .9rem">IFAL <span class="text-success">|</span> <span class="fst-italic text-info">React Native</span></span>
+                    </a>
+                </div>
+
+                <div class="align-self-center">
+                    <ul class="nav d-flex">
+                        <li>
+                            <a class="nav-link" href="https://josafaverissimo.github.io/ifal-react-native/">
+                                Home
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="clock d-flex flex-column align-items-center placeholder-glow">
+                    <span class="time placeholder mb-1"><time datetime="">foobarfoobar</time></span>
+                    <span class="date placeholder"><time datetime="placeholder">foo bar foo.bar foo bar</time></span>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main class="container-lg">
+    <div class="mt-5">
+        <h1><em>Kiris</em>List</h1>
+    </div>
+
+    <div class="row align-items-md-stretch wrapper">
+        <div class="col-4 shadow-lg p-3">
+            <form>
+                <div class="mb-3">
+                    <label for="product-name" class="form-label">Nome do produto</label>
+                    <input type="text" class="form-control" id="product-name">
+                </div>
+                <div class="mb-3">
+                    <label for="product-description" class="form-label">Descrição do produto</label>
+                    <textarea class="form-control" id="product-description" rows="5" style="resize: none"></textarea>
+                </div>
+
+                <button class="btn btn-outline-dark w-100" type="submit">Inserir</button>
+            </form>
+        </div>
+
+        <div class="col-8 p-4">
+            <div class="h-100 p-5 shadow-lg">
+                <div id="list-filter">
+                    <div class="row justify-content-center">
+                        <div class="col-9">
+                            <input type="text" class="form-control" placeholder="pesquisar">
+                        </div>
+                        <div class="col-1">
+                            <button class="btn btn-outline-dark mb-3" type="button">Limpar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group"></div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <script>
+        function ProductListFactory(inputFilterWrapper) {
+            const productWrapper = document.querySelector(".list-group")
+            const products = getProducts()
+            function getProducts() {
+                if(localStorage.getItem("products")) return JSON.parse(localStorage.getItem("products"))
+
+                localStorage.setItem("products", JSON.stringify([
+                    {
+                        name: "Computador",
+                        description: "O computador tem que rodar CodWarzone."
+                    },
+                    {
+                        name: "Telefone",
+                        description: "Um telefone é útil."
+                    },
+                    {
+                        name: "Mouse",
+                        description: "Mouse bom é da redragon."
+                    },
+                    {
+                        name: "Teclado",
+                        description: "Teclado mecânico? Não! Teclado óptico é a moda."
+                    }
+                ]))
+
+                return JSON.parse(localStorage.getItem("products"))
+            }
+            const domParser = (() => {
+                const domParserObject = new DOMParser()
+
+                return html => {
+                    return  domParserObject.parseFromString(html, "text/html").body.firstElementChild
+                }
+            })()
+
+            function clearAndShowProducts() {
+                inputFilterWrapper.querySelector("input").value = ''
+                clearProducts()
+                showProducts(products)
+            }
+
+            function clearProducts() {
+                productWrapper.innerHTML = ""
+            }
+
+            function showProducts(products) {
+                clearProducts()
+
+                products.forEach(product => {
+                    const productNode = domParser(`
+                        <div class="list-group-item list-group-item-action flex-column align-items-start shadow-lg">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">${product.name}</h5>
+                            </div>
+
+                            <p class="px-3">
+                                ${product.description}
+                            </p>
+                        </div>
+                    `)
+
+                    productWrapper.appendChild(productNode)
+                })
+            }
+
+            function filterProducts(search) {
+                search = search.toLowerCase()
+                return products.filter(product => {
+                    const matchName = product.name.toLowerCase().indexOf(search) !== -1
+                    const matchDescription = product.description.toLowerCase().indexOf(search) !== -1
+
+                    return matchName || matchDescription
+                })
+            }
+
+            function listeningInputFilter() {
+                if(!inputFilterWrapper) return
+
+                const input = inputFilterWrapper.querySelector("input")
+                const cleanButton = inputFilterWrapper.querySelector("button")
+
+                input.addEventListener("input", () => {
+                    const currentValue = input.value
+
+                    const filteredProducts = filterProducts(currentValue)
+
+                    showProducts(filteredProducts)
+                })
+
+                cleanButton.addEventListener("click", clearAndShowProducts)
+            }
+
+            function start() {
+                listeningInputFilter()
+                showProducts(products)
+            }
+
+            return {
+                start
+            }
+        }
+
+        const inputFilterWrapper = document.getElementById("list-filter")
+        const productList = ProductListFactory(inputFilterWrapper)
+
+        productList.start()
+    </script>
+
+    <script>
+        const myIntervals = [];
+        function Clock(timeElementSelector, dateElementSelector) {
+            function getTimeNow() {
+                const date = new Date()
+                const hours = String(date.getHours()).padStart(2, "00")
+                const minutes = String(date.getMinutes()).padStart(2, "00")
+                const seconds = String(date.getSeconds()).padStart(2, "00")
+
+                return `${hours}:${minutes}:${seconds}`
+            }
+
+            function getDateNow() {
+                const date = new Date()
+                const months = [
+                    "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                    "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+                ]
+                const day = String(date.getDate()).padStart(2, "00")
+                const monthNumber = date.getMonth()
+                const year = String(date.getFullYear()).padStart(2, "00")
+                const month = months[monthNumber]
+
+                return {
+                    "message": `${day} de ${month} de ${year}`,
+                    "formatted": `${year}-${month}-${day}`
+                }
+            }
+
+            function startClock() {
+                myIntervals.push(setInterval(() => {
+                    const time = getTimeNow()
+                    const date = getDateNow()
+                    const timeElement = document.querySelector(timeElementSelector);
+                    const dateElement = document.querySelector(dateElementSelector);
+
+                    timeElement.textContent = time
+                    timeElement.setAttribute("datetime", time);
+
+                    dateElement.textContent = date.message
+                    dateElement.setAttribute("datetime", date.formatted)
+
+                    timeElement.classList.remove("placeholder")
+                    dateElement.classList.remove("placeholder")
+
+                }, 1000))
+            }
+
+            return {
+                startClock
+            }
+        }
+
+        (function startMainClock() {
+            const clockTimeSelector = ".clock .time"
+            const clockDateSelector = ".clock .date"
+            const clock = Clock(clockTimeSelector, clockDateSelector)
+            clock.startClock()
+        })()
+    </script>
+    <script>
+        (function mySelect(onChange = null) {
+            const selectElements = document.querySelectorAll(".my-select")
+            const selectOptionsData = {}
+
+            function getSelectOptions(select) {
+                const options = select.querySelectorAll("option")
+                return [].reduce.call(options, (options, option) => {
+                    options.push({
+                        id: option.id,
+                        value: option.value,
+                        textContent: option.textContent.trim().toLowerCase()
+                    })
+
+                    return options
+                }, [])
+            }
+
+            function changeValue(select, option) {
+                select.querySelector("button").textContent = option.textContent
+                select.querySelector(`#${option.id}`).selected = true
+
+                if(onChange !== null) {
+                    onChange(option.value)
+                }
+            }
+
+            function insertLiDropdownItem(select, option) {
+                const optionsWrapper = getOptionsWrapper(select)
+                const liDropdownItem = document.createElement("li")
+                liDropdownItem.classList.add("dropdown-item")
+                liDropdownItem.textContent = option.textContent
+                liDropdownItem.setAttribute("role", "button")
+
+                liDropdownItem.addEventListener("click", () => {
+                    changeValue(select, option)
+                })
+
+                optionsWrapper.appendChild(liDropdownItem)
+            }
+
+            function getOptionsWrapper(select) {
+                return select.querySelector("ul ul")
+            }
+
+            function fillValues() {
+                selectElements.forEach(select => {
+                    const optionsById = getSelectOptions(select)
+                    const inputElement = select.querySelector("input")
+
+                    selectOptionsData[select.id] = []
+
+                    optionsById.forEach(option => {
+                        insertLiDropdownItem(select, option)
+                        selectOptionsData[select.id].push(option)
+                    })
+
+                    inputElement.addEventListener("input", () => {
+                        listeningInput(select, inputElement)
+                    })
+                })
+            }
+
+            function listeningInput(select, inputElement) {
+                const currentValue = inputElement.value.toLowerCase()
+                const selectOptionData = selectOptionsData[select.id]
+
+                const filteredSelectOptionData = selectOptionData.reduce((options, option) => {
+                    if(option.textContent.indexOf(currentValue) !== -1) {
+                        options.push(option)
+                    }
+
+                    return options
+                }, [])
+
+                cleanOptionsWrapper(select)
+
+                filteredSelectOptionData.forEach(option => {
+                    insertLiDropdownItem(select, option)
+                })
+            }
+
+            function cleanOptionsWrapper(select) {
+                const optionsWrapper = getOptionsWrapper(select)
+                optionsWrapper.innerHTML = ""
+            }
+
+            fillValues()
+        })()
+    </script>
+</footer>
+</body>
+</html>
