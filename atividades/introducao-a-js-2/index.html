@@ -105,7 +105,7 @@
             const productWrapper = document.querySelector(".list-group")
 
             function getProducts() {
-                if(localStorage.getItem("products") && localStorage.getItem("products").length > 3)
+                if(localStorage.getItem("products") && JSON.parse(localStorage.getItem("products")).length > 0)
                     return JSON.parse(localStorage.getItem("products"))
 
                 localStorage.setItem("products", JSON.stringify([
