@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Calculadora</title>
+
+        <link rel="icon" href="https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/1c/0e/c8/1c0ec875-bf67-ccc9-b127-8544ca50c07b/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+        <style>
+            .my-select select {
+            display: none;
+            }
+
+            .my-select ul ul {
+            height: 250px;
+            overflow-y: auto;
+            }
+
+            .my-select button {
+            min-width: 11rem;
+            }
+        </style>
+    </head>
+    <body>
+        <!--
+            Crie um programa que recebe dois números e uma operação matemática
+            (adição, subtração, multiplicação ou divisão) como entrada e
+            realiza a operação, exibindo o resultado.
+        -->
+
+        <header>
+            <div class="d-flex justify-content-center mt-2">
+                <nav class="navbar navbar-expand-lg shadow-lg rounded d-flex justify-content-center px-3" style="width: 90vw">
+                    <div class="d-flex w-100 justify-content-between align-items-center">
+                        <div>
+                            <a class="btn btn-link navbar-brand p-0" href="https://josafaverissimo.github.io/ifal-react-native/">
+                                <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/1c/0e/c8/1c0ec875-bf67-ccc9-b127-8544ca50c07b/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp" alt="Logo do ifal" width="50">
+                            </a>
+                        </div>
+
+                        <div class="align-self-center">
+                            <ul class="nav d-flex">
+                                <li>
+                                    <a class="nav-link" href="https://josafaverissimo.github.io/ifal-react-native/">
+                                        Home
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="clock d-flex flex-column align-items-center placeholder-glow">
+                            <span class="time placeholder mb-1"><time datetime="">foobar</time></span>
+                            <span class="date placeholder"><time datetime="placeholder">foo bar foo.bar foo bar</time></span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container-fluid">
+            <div class="my-5">
+                <h1 class="text-center"><em>Kiris</em>Calc</h1>
+            </div>
+
+            <div class="row align-items-md-stretch wrapper">
+                <div class="col-md-12 col-lg-6 p-lg-3 mb-md-3">
+                    <div class="h-100 p-5 shadow-lg target">
+                        <h2 class="text-center">Entrada</h2>
+
+                        <form id="input-form">
+                            <div class="d-flex mb-3">
+                                <input class="form-control" type="number" name="term1" placeholder="Digite um número" aria-label="Pesquisar">
+
+                                <div class="dropdown my-select mx-2">
+                                    <select name="operator">
+                                        <option selected></option>
+                                        <option id="my-select-option-plus" value="+">Mais</option>
+                                        <option id="my-select-option-minus" value="-">Menos</option>
+                                        <option id="my-select-option-multiplication" value="*">Vezes</option>
+                                        <option id="my-select-option-division" value="/">Dividido por</option>
+                                    </select>
+                                    <button class="btn btn-light btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">
+                                        Operação
+                                    </button>
+
+                                    <div class="dropdown-menu">
+                                        <ul class="list-group-flush px-2">
+                                            <li class="list-group-item">
+                                                <input type="text" class="form-control" placeholder="Procure o operador">
+                                                <div class="dropdown-divider"></div>
+                                            </li>
+
+                                            <ul class="p-0"></ul>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <input class="form-control" type="number" name="term2" placeholder="Digite um número" aria-label="Pesquisar">
+                            </div>
+
+                            <button class="btn btn-outline-primary w-100" type="submit">Calcular</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-6 p-lg-3 mb-md-3">
+                    <div class="h-100 p-5 shadow-lg target">
+                        <h2 class="text-center">Saída</h2>
+
+                        <div id="output-wrapper">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <script>
+                const inputForm = document.getElementById("input-form")
+                const operationsResults = []
+
+                inputForm.addEventListener("submit", event => {
+                    event.preventDefault()
+
+                    const { term1, term2, operator } = inputForm
+
+                    if(!term1.value || !operator.value || !term2.value) return
+
+                    const result = doCalc(term1.value, term2.value, operator.value)
+                    operationsResults.push([
+                        term1.value,
+                        operator.value,
+                        term2.value,
+                        result
+                    ])
+
+                    outputOperationsResults()
+                })
+
+                function outputOperationsResults() {
+                    const outputWrapper = document.getElementById("output-wrapper")
+                    const domParser = new DOMParser()
+
+                    outputWrapper.innerHTML = ''
+
+                    operationsResults.reverse().forEach(([term1, operator, term2, result], index) => {
+                        const outputHtml = `
+                            <div>
+                                ${String(operationsResults.length - index).padStart(2, '0')}: ${term1} ${operator} ${term2} = ${result}
+                            </div>
+                        `
+                        const node = domParser.parseFromString(outputHtml, "text/html").body.firstElementChild
+
+                        outputWrapper.append(node)
+                    })
+                }
+
+                function doCalc(term1, term2, operator) {
+                    const operationsByOperator = {
+                        "+": (term1, term2) => Number(term1) + Number(term2),
+                        "-": (term1, term2) => Number(term1) - Number(term2),
+                        "*": (term1, term2) => Number(term1) * Number(term2),
+                        "/": (term1, term2) => Number(term1) / Number(term2)
+                    }
+
+                    return operationsByOperator[operator](term1, term2)
+                }
+            </script>
+
+            <script>
+                const myIntervals = [];
+                function Clock(timeElementSelector, dateElementSelector) {
+                    function getTimeNow() {
+                        const date = new Date()
+                        const hours = String(date.getHours()).padStart(2, "00")
+                        const minutes = String(date.getMinutes()).padStart(2, "00")
+                        const seconds = String(date.getSeconds()).padStart(2, "00")
+
+                        return `${hours}:${minutes}:${seconds}`
+                    }
+
+                    function getDateNow() {
+                        const date = new Date()
+                        const months = [
+                            "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                            "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+                        ]
+                        const day = String(date.getDate()).padStart(2, "00")
+                        const monthNumber = date.getMonth()
+                        const year = String(date.getFullYear()).padStart(2, "00")
+                        const month = months[monthNumber]
+
+                        return {
+                            "message": `${day} de ${month} de ${year}`,
+                            "formatted": `${year}-${month}-${day}`
+                        }
+                    }
+
+                    function startClock() {
+                        myIntervals.push(setInterval(() => {
+                            const time = getTimeNow()
+                            const date = getDateNow()
+                            const timeElement = document.querySelector(timeElementSelector);
+                            const dateElement = document.querySelector(dateElementSelector);
+
+                            timeElement.textContent = time
+                            timeElement.setAttribute("datetime", time);
+
+                            dateElement.textContent = date.message
+                            dateElement.setAttribute("datetime", date.formatted)
+
+                            timeElement.classList.remove("placeholder")
+                            dateElement.classList.remove("placeholder")
+
+                        }, 1000))
+                    }
+
+                    return {
+                        startClock
+                    }
+                }
+
+                (function startMainClock() {
+                    const clockTimeSelector = ".clock .time"
+                    const clockDateSelector = ".clock .date"
+                    const clock = Clock(clockTimeSelector, clockDateSelector)
+                    clock.startClock()
+                })()
+            </script>
+            <script>
+                (function mySelect(onChange = null) {
+                    const selectElements = document.querySelectorAll(".my-select")
+                    const selectOptionsData = {}
+
+                    function getSelectOptions(select) {
+                        const options = select.querySelectorAll("option")
+                        return [].reduce.call(options, (options, option) => {
+                            options.push({
+                                id: option.id,
+                                value: option.value,
+                                textContent: option.textContent.trim().toLowerCase()
+                            })
+
+                            return options
+                        }, [])
+                    }
+
+                    function changeValue(select, option) {
+                        select.querySelector("button").textContent = option.textContent
+                        select.querySelector(`#${option.id}`).selected = true
+
+                        if(onChange !== null) {
+                            onChange(option.value)
+                        }
+                    }
+
+                    function insertLiDropdownItem(select, option) {
+                        const optionsWrapper = getOptionsWrapper(select)
+                        const liDropdownItem = document.createElement("li")
+                        liDropdownItem.classList.add("dropdown-item")
+                        liDropdownItem.textContent = option.textContent
+                        liDropdownItem.setAttribute("role", "button")
+
+                        liDropdownItem.addEventListener("click", () => {
+                            changeValue(select, option)
+                        })
+
+                        optionsWrapper.appendChild(liDropdownItem)
+                    }
+
+                    function getOptionsWrapper(select) {
+                        return select.querySelector("ul ul")
+                    }
+
+                    function fillValues() {
+                        selectElements.forEach(select => {
+                            const optionsById = getSelectOptions(select)
+                            const inputElement = select.querySelector("input")
+
+                            selectOptionsData[select.id] = []
+
+                            optionsById.forEach(option => {
+                                insertLiDropdownItem(select, option)
+                                selectOptionsData[select.id].push(option)
+                            })
+
+                            inputElement.addEventListener("input", () => {
+                                listeningInput(select, inputElement)
+                            })
+                        })
+                    }
+
+                    function listeningInput(select, inputElement) {
+                        const currentValue = inputElement.value.toLowerCase()
+                        const selectOptionData = selectOptionsData[select.id]
+
+                        const filteredSelectOptionData = selectOptionData.reduce((options, option) => {
+                            if(option.textContent.indexOf(currentValue) !== -1) {
+                                options.push(option)
+                            }
+
+                            return options
+                        }, [])
+
+                        cleanOptionsWrapper(select)
+
+                        filteredSelectOptionData.forEach(option => {
+                            insertLiDropdownItem(select, option)
+                        })
+                    }
+
+                    function cleanOptionsWrapper(select) {
+                        const optionsWrapper = getOptionsWrapper(select)
+                        optionsWrapper.innerHTML = ""
+                    }
+
+                    fillValues()
+                })()
+            </script>
+        </footer>
+    </body>
+</html>
