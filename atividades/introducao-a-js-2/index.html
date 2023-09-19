@@ -65,15 +65,15 @@
     </div>
 
     <div class="row align-items-md-stretch wrapper">
-        <div class="col-4 shadow-lg p-3">
+        <div class="col-4 shadow-lg p-3" style="height: 30em">
             <form>
                 <div class="mb-3">
                     <label for="product-name" class="form-label">Nome do produto</label>
-                    <input type="text" class="form-control" id="product-name">
+                    <input type="text" class="form-control" id="product-name" name="name">
                 </div>
                 <div class="mb-3">
                     <label for="product-description" class="form-label">Descrição do produto</label>
-                    <textarea class="form-control" id="product-description" rows="5" style="resize: none"></textarea>
+                    <textarea class="form-control" id="product-description" rows="5" style="resize: none" name="description"></textarea>
                 </div>
 
                 <button class="btn btn-outline-dark w-100" type="submit">Inserir</button>
@@ -81,7 +81,7 @@
         </div>
 
         <div class="col-8 p-4">
-            <div class="h-100 p-5 shadow-lg">
+            <div class="p-5 shadow-lg">
                 <div id="list-filter">
                     <div class="row justify-content-center">
                         <div class="col-9">
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="list-group"></div>
+                <div class="list-group" style="max-height: 300px;overflow-y: auto;"></div>
             </div>
         </div>
     </div>
@@ -101,10 +101,12 @@
 <footer>
     <script>
         function ProductListFactory(inputFilterWrapper) {
+            const form = document.querySelector("form")
             const productWrapper = document.querySelector(".list-group")
-            const products = getProducts()
+
             function getProducts() {
-                if(localStorage.getItem("products")) return JSON.parse(localStorage.getItem("products"))
+                if(localStorage.getItem("products") && localStorage.getItem("products").length > 3)
+                    return JSON.parse(localStorage.getItem("products"))
 
                 localStorage.setItem("products", JSON.stringify([
                     {
@@ -127,6 +129,7 @@
 
                 return JSON.parse(localStorage.getItem("products"))
             }
+
             const domParser = (() => {
                 const domParserObject = new DOMParser()
 
@@ -138,21 +141,28 @@
             function clearAndShowProducts() {
                 inputFilterWrapper.querySelector("input").value = ''
                 clearProducts()
-                showProducts(products)
+                showProducts(getProducts())
             }
 
             function clearProducts() {
                 productWrapper.innerHTML = ""
             }
 
+            function removeProduct(name) {
+                const products = getProducts().filter(product => product.name !== name)
+
+                localStorage.setItem("products", JSON.stringify(products))
+            }
+
             function showProducts(products) {
                 clearProducts()
 
-                products.forEach(product => {
+                products.reverse().forEach(product => {
                     const productNode = domParser(`
                         <div class="list-group-item list-group-item-action flex-column align-items-start shadow-lg">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">${product.name}</h5>
+                                <button class="btn btn-remove" type="button" data-product-to-remove="${product.name}">Remover</button>
                             </div>
 
                             <p class="px-3">
@@ -161,13 +171,21 @@
                         </div>
                     `)
 
+                    productNode.querySelector(".btn-remove").addEventListener("click", event => {
+                        const button = event.target
+                        const { productToRemove } = button.dataset
+
+                        removeProduct(productToRemove)
+                        showProducts(getProducts())
+                    })
+
                     productWrapper.appendChild(productNode)
                 })
             }
 
             function filterProducts(search) {
                 search = search.toLowerCase()
-                return products.filter(product => {
+                return getProducts().filter(product => {
                     const matchName = product.name.toLowerCase().indexOf(search) !== -1
                     const matchDescription = product.description.toLowerCase().indexOf(search) !== -1
 
@@ -192,9 +210,65 @@
                 cleanButton.addEventListener("click", clearAndShowProducts)
             }
 
+            function addProduct({name, description}) {
+                const products = getProducts()
+                products.push({name, description})
+
+                localStorage.setItem("products", JSON.stringify(products))
+            }
+
+            function clearForm() {
+                form.querySelectorAll("input,textarea").forEach(input => input.value = "")
+            }
+
+            function listeningAddForm() {
+                form.addEventListener("submit", event => {
+                    event.preventDefault()
+
+                    const { name, description } = form
+
+
+                    if(!name.value || !description.value) return
+
+                    addProduct({name: name.value, description: description.value})
+                    showProducts(getProducts())
+
+                    clearForm()
+                })
+            }
+
+            function activity() {
+                console.log("[LOGGING] Exibindo a lista de produtos")
+                getProducts().forEach(console.log)
+
+                console.log(`[LOGGING] Quantidade de itens exibidos: ${getProducts().length}`)
+
+                removeProduct("Mouse")
+                console.log("[LOGGING] O produto \"Mouse\" foi removido")
+                console.log("[LOGGING] Exibindo a lista de produtos remanescentes")
+                getProducts().forEach(console.log)
+
+                console.log("[LOGGING] procurando por \"Computador\"...")
+                const filteredProduct = getProducts().filter(product => product.name === "Computador")
+                console.log(`[LOGGING] ${filteredProduct.length > 0 ? "O produto existe" : "O produto não existe"}`)
+
+                console.log("[LOGGING] removendo o segundo item da lista...")
+                if(getProducts().length > 1) {
+                    console.log(`[LOGGING] O segundo item da lista "${getProducts()[1].name}" foi removido`)
+                    localStorage.setItem("products", JSON.stringify(getProducts().filter((product, index) => index !== 1)))
+                } else {
+                    console.log(`[LOGGING] o tamanho da lista é menor que 2`)
+                }
+
+
+            }
+
             function start() {
+                activity()
+
+                listeningAddForm()
                 listeningInputFilter()
-                showProducts(products)
+                showProducts(getProducts())
             }
 
             return {
