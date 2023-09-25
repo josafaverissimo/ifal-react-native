@@ -1,18 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Calculadora</title>
+
+    <link rel="icon"
+        href="https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/1c/0e/c8/1c0ec875-bf67-ccc9-b127-8544ca50c07b/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+
+    <style>
+        .my-select select {
+            display: none;
+        }
+
+        .my-select ul ul {
+            height: 250px;
+            overflow-y: auto;
+        }
+
+        .my-select button {
+            min-width: 11rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,6 +44,8 @@
                             href="https://josafaverissimo.github.io/ifal-react-native/">
                             <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/1c/0e/c8/1c0ec875-bf67-ccc9-b127-8544ca50c07b/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp"
                                 alt="Logo do ifal" width="50">
+                            <span style="font-size: .9rem">IFAL <span class="text-success">|</span> <span
+                                    class="fst-italic text-info">React Native</span></span>
                         </a>
                     </div>
 
@@ -40,7 +60,7 @@
                     </div>
 
                     <div class="clock d-flex flex-column align-items-center placeholder-glow">
-                        <span class="time placeholder mb-1"><time datetime="">foobar</time></span>
+                        <span class="time placeholder mb-1"><time datetime="">foobarfoobar</time></span>
                         <span class="date placeholder"><time datetime="placeholder">foo bar foo.bar foo
                                 bar</time></span>
                     </div>
@@ -49,86 +69,94 @@
         </div>
     </header>
 
-    <main class="container-lg my-5">
-        <div class="row">
-            <h1>Minhas atividades</h1>
+    <main class="container-lg">
+        <div class="mt-5">
+            <h1><em>Kiris</em> - Lidando com funções</h1>
+        </div>
 
-            <div class="list-group">
-                <a href="https://josafaverissimo.github.io/ifal-react-native/atividades/lidando-com-funcoes"
-                    class="list-group-item list-group-item-action flex-column align-items-start shadow-lg">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Lidando com funções</h5>
-                        <small>25/09/2023</small>
-                    </div>
-                    <p class="mb-1">
-                        Criar uma função que verifica se os campos "Nome" e "Email" estão preenchdios.
-                        Se algum deles estiver vazio, a função exibe um alerta e retorna <em>false</em>
-                        impedindo o envio do formulário. Se ambos os campos estiverem preenchidos, a função retorna
-                        <em>true</em>,
-                        permitindo o envio
-                    </p>
-                    <small><em>Atividade concluída!</em></small>
-                </a>
-                <a href="https://josafaverissimo.github.io/ifal-react-native/atividades/calculadora-imc"
-                    class="list-group-item list-group-item-action flex-column align-items-start shadow-lg">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Teste de nivelamento (Calculadora de IMC)</h5>
-                        <small>25/09/2023</small>
-                    </div>
-                    <p class="mb-1">
-                        Fazer uma calculadora de IMC. Requisitos:
-                        <ol class="px-3">
-                            <li>Ter entrada de dados;</li>
-                            <li>Ter a saída colocada em um pop-up (caixa visual).</li>
-                        </ol>
-                    </p>
-                    <small><em>Atividade concluída!</em></small>
-                </a>
-                <a href="https://josafaverissimo.github.io/ifal-react-native/atividades/introducao-a-js-2"
-                    class="list-group-item list-group-item-action flex-column align-items-start shadow-lg">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Introdução a JS-2</h5>
-                        <small>18/09/2023</small>
-                    </div>
-                    <ol class="px-3">
-                        <li>
-                            A lista produtos deve conter os seguintes produtos: Computador, Telefone, Mouse e Teclado.
-                            Exiba essa lista no console ao abrir o index.html;
-                        </li>
+        <div class="row align-items-md-stretch wrapper">
+            <div class="col-6 p-lg-3 mb-md-3">
+                <div class="h-100 shadow-lg p-5 d-flex flex-column">
+                    <h2 class="text-center">Entrada</h2>
 
-                        <li>Mostre no console quantos produtos tem nessa lista;</li>
+                    <form id="form-input">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="d-flex flex-column align-items-center" style="width: 45%">
+                                <label for="name-input">Nome</label>
+                                <input type="text" class="form-control" name="name" id="name-input">
+                            </div>
 
-                        <li>Retire o produto mouse da lista e retrnoe no console a lista com os produtos restantes;</li>
+                            <div class="d-flex flex-column align-items-center" style="width: 45%">
+                                <label for="email-input">Email</label>
+                                <input type="text" class="form-control" name="email" id="email-input">
+                            </div>
+                        </div>
 
-                        <li>
-                            Faça uma busca na sua lista por algum produto por exemplo procure por Computador e caso
-                            exista esse produto na sua lista exiba um console falando que este produto existe e mostre
-                            também o nome deste produto, caso não exista mostre uma mensagem avisando que o produto
-                            não foi encontrado;
-                        </li>
+                        <button class="btn btn-outline-primary w-100" type="submit">Verificar</button>
+                    </form>
+                </div>
+            </div>
 
-                        <li>Remove o segundo item da sua lista.</li>
-                    </ol>
-                    <small><em>Atividade concluída!</em></small>
-                </a>
-                <a href="https://josafaverissimo.github.io/ifal-react-native/atividades/introducao-a-js-1/"
-                    class="list-group-item list-group-item-action flex-column align-items-start shadow-lg">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Introdução a JS-1</h5>
-                        <small>18/09/2023</small>
-                    </div>
-                    <p class="mb-1">
-                        Crie um programa que recebe dois números e uma operação matemática
-                        (adição, subtração, multiplicação ou divisão) como entrada e
-                        realiza a operação, exibindo o resultado.
-                    </p>
-                    <small><em>Atividade concluída!</em></small>
-                </a>
+            <div class="col-6 p-lg-3 mb-md-3">
+                <div class="h-100 p-5 shadow-lg target">
+                    <h2 class="text-center">Saída</h2>
+
+                    <div id="output-wrapper" style="height: 100px; overflow-y: auto"></div>
+                </div>
             </div>
         </div>
     </main>
 
     <footer>
+        <script>
+            function outputFactory() {
+
+                function append(text) {
+
+                    const outputWrapper = document.getElementById("output-wrapper")
+                    const domParser = new DOMParser()
+
+                    outputWrapper.innerHTML = ''
+
+                    const outputHtml = `<p>${text}</p>`
+                    const node = domParser.parseFromString(outputHtml, "text/html").body.firstElementChild
+
+                    outputWrapper.append(node)
+                }
+
+                return {
+                    append
+                }
+            }
+
+            function listeningFormInput() {
+                const formInput = document.getElementById("form-input")
+                const output = outputFactory()
+
+                function verifyInputs() {
+                    let isInputEmpty = false
+
+                    formInput.querySelectorAll("input").forEach(input => {
+                        if (input.value === "") {
+                            isInputEmpty = true
+                        }
+                    })
+
+                    return isInputEmpty
+                }
+
+                formInput.addEventListener("submit", event => {
+                    event.preventDefault()
+
+                    const isInputEmpty = verifyInputs()
+
+                    output.append(isInputEmpty ? "Algum campo está vazio" : "Os campos foram preenchidos")
+                })
+            }
+
+            listeningFormInput()
+        </script>
+
         <script>
             const myIntervals = [];
             function Clock(timeElementSelector, dateElementSelector) {
