@@ -239,14 +239,14 @@
 
             function activity() {
                 console.log("[LOGGING] Exibindo a lista de produtos")
-                getProducts().forEach(console.log)
+                console.table(getProducts())
 
                 console.log(`[LOGGING] Quantidade de itens exibidos: ${getProducts().length}`)
 
                 removeProduct("Mouse")
                 console.log("[LOGGING] O produto \"Mouse\" foi removido")
                 console.log("[LOGGING] Exibindo a lista de produtos remanescentes")
-                getProducts().forEach(console.log)
+                console.table(getProducts())
 
                 console.log("[LOGGING] procurando por \"Computador\"...")
                 const filteredProduct = getProducts().filter(product => product.name === "Computador")
