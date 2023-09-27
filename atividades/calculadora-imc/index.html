@@ -164,11 +164,11 @@
                 }
 
                 function getHealthyStatus(imc) {
-                    if(imc < 18.5) {
+                    if (imc < 18.5) {
                         return "Abaixo do peso"
-                    } else if(imc < 25) {
+                    } else if (imc < 25) {
                         return "Saudável"
-                    } else if(imc < 29) {
+                    } else if (imc < 29) {
                         return "Sobre peso"
                     } else if (imc < 35) {
                         return "Obesidade grau I"
@@ -182,7 +182,7 @@
                 formInput.addEventListener("submit", event => {
                     event.preventDefault()
 
-                    const imc = calculateImc().toFixed(2)
+                    const imc = String(calculateImc().toFixed(2)).replace(".", ",")
 
                     output.append(`Seu IMC é de: ${imc}. Diagnóstico: ${getHealthyStatus(imc)}`)
                 })
