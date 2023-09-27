@@ -134,15 +134,10 @@
                 const output = outputFactory()
 
                 function verifyInputs() {
-                    let isInputEmpty = false
-
-                    formInput.querySelectorAll("input").forEach(input => {
-                        if (input.value === "") {
-                            isInputEmpty = true
-                        }
-                    })
-
-                    return isInputEmpty
+                    return [].some.call(
+                        formInput.querySelectorAll("input"),
+                        input => input.value === ""
+                    )
                 }
 
                 formInput.addEventListener("submit", event => {
