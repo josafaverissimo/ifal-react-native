@@ -6,7 +6,7 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Calculadora</title>
+    <title>Calculadora IMC</title>
 
     <link rel="icon"
         href="https://is1-ssl.mzstatic.com/image/thumb/Purple122/v4/1c/0e/c8/1c0ec875-bf67-ccc9-b127-8544ca50c07b/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.webp">
@@ -146,8 +146,8 @@
                     rangeInputs.forEach(input => {
                         input.addEventListener("input", () => {
                             const {id, value} = input
-                            const rangeOutput = document.querySelector(`#${id}-output`)
                             const {metricUnit} = input.dataset
+                            const rangeOutput = document.querySelector(`#${id}-output`)
 
                             rangeOutput.textContent = `${String(value).replace(".", ",")}${metricUnit}`
                         })
@@ -163,12 +163,28 @@
                     return weight / (height ** 2)
                 }
 
+                function getHealthyStatus(imc) {
+                    if(imc < 18.5) {
+                        return "Abaixo do peso"
+                    } else if(imc < 25) {
+                        return "Saudável"
+                    } else if(imc < 29) {
+                        return "Sobre peso"
+                    } else if (imc < 35) {
+                        return "Obesidade grau I"
+                    } else if (imc < 40) {
+                        return "Obesidade grau II"
+                    } else {
+                        return "Obesidade mórbida"
+                    }
+                }
+
                 formInput.addEventListener("submit", event => {
                     event.preventDefault()
 
                     const imc = calculateImc().toFixed(2)
 
-                    output.append(`Seu IMC é de: ${imc}`)
+                    output.append(`Seu IMC é de: ${imc}. Diagnóstico: ${getHealthyStatus(imc)}`)
                 })
 
 

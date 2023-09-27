@@ -74,7 +74,7 @@
 
                                 <div class="dropdown my-select mx-2">
                                     <select name="operator">
-                                        <option selected></option>
+                                        <option selected hidden></option>
                                         <option id="my-select-option-plus" value="+">Mais</option>
                                         <option id="my-select-option-minus" value="-">Menos</option>
                                         <option id="my-select-option-multiplication" value="*">Vezes</option>
@@ -261,6 +261,8 @@
                     }
 
                     function insertLiDropdownItem(select, option) {
+                        if(!option.textContent) return
+
                         const optionsWrapper = getOptionsWrapper(select)
                         const liDropdownItem = document.createElement("li")
                         liDropdownItem.classList.add("dropdown-item")
