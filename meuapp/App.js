@@ -3,14 +3,17 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
-   const [name, setName] = useState('')
+    const [name, setName] = useState('')
+    const [input, setInput] = useState('')
+    
 
-    function getName(input) {
-        if(input.length > 0) {
-            setName(`Bem-vindo(a) ${input}`)
-        } else {
-            setName('')
+    function entrar() {
+        if(input === '') {
+            alert("Digite seu nome!")
+            return
         }
+
+        setName(`Bem-vindo ${input}`)
     }
     
     return (
@@ -18,8 +21,9 @@ export default function App() {
             <TextInput 
                 style={styles.input}
                 placeholder="Type your name"
-                onChangeText={getName}
             />
+
+            <Button title="Entrar" onPress={entrar} />
 
             <Text style={{styles.texto}}>{name}</Text>
         </View>
@@ -28,13 +32,14 @@ export default function App() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        marginTop: 68
     },
     input:  {
         height: 45,
         borderWidth: 1,
         padding: 10,
-            fontSize: 20             
+        fontSize: 20             
     },
     texto: {
         textAlign: center,
