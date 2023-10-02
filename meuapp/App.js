@@ -3,12 +3,17 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
     return (
-        <View style={{flex: 1, backgroundColor: "black"}}>
-            <StatusBar></StatusBar>
+        <View style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-end'
+        }}>
+            <statusbar></statusbar>
 
+            <View style={{width: 50, height: 50, backgroundColor: "black"}}></View>
             <View style={{width: 50, height: 50, backgroundColor: "red"}}></View>
-            <View style={{width: 50, height: 50, backgroundColor: "yellow"}}></View>
-            <View style={{width: 50, height: 50, backgroundColor: "blue"}}></View>
+            <View style={{width: 50, height: 50, backgroundColor: "green"}}></View>
         </View>
     );
 }
