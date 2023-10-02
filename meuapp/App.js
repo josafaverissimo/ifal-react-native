@@ -1,40 +1,32 @@
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function App() {
-    return (
-        <View style={{
-            flex: 1,
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            justifyContent: 'flex-end'
-        }}>
-            <statusbar></statusbar>
+    const phrases = [
+        "Você será escolhido para algo grande!",
+        "Desconfie de quem quem está a sua volta!",
+        "Todos se levantarão contra ti",
+        "Não desista"
+    ]
+    const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
+    const [phrase, setPhrase] = useState(phrases[currentPhraseIndex])
 
-            <View style={{width: 50, height: 50, backgroundColor: "black"}}></View>
-            <View style={{width: 50, height: 50, backgroundColor: "red"}}></View>
-            <View style={{width: 50, height: 50, backgroundColor: "green"}}></View>
+    function changePhrase() {
+        do {
+            const randomIndex = Math.floor(Math.random() * phrases.length)
+        } while(randomIndex === currentPhraseIndex)
+
+        setCurrentPhraseIndex(randomIndex)
+        setPhrase(phrase[currentPhraseIndex])
+    }
+    
+    return (
+        <View>
+            <StatusBar></StatusBar>
+
+            <Button onPress={changePhrase} title="Gere uma frase aleatória">
+            <Text>{phrase}</Text>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    titulo: {
-        fontSize: 40,
-        color: '#f00'
-    },
-    subtitulo: {
-        color: '#0f0',
-        fontSize: 30,
-        marginTop: 15
-    },
-    textoAlinhado: {
-        textAlign: "center"
-    }
-});
