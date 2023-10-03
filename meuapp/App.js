@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StatusBar, StyleSheet, Text, View, Image, TouchableOpacity SafeAreaView} from 'react-native';
+import { StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView} from 'react-native';
 
 export default function App() {
     const [img, setImg] = useState(require('./src/biscoito.png'))
