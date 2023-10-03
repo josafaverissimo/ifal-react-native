@@ -60,5 +60,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 68
+    },
+    img: {
+        height: 50,
+        width: 50
     }
 })
