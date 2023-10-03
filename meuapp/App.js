@@ -67,5 +67,11 @@ const styles = StyleSheet.create({
     },
     text: {
         alignItems: "center"
+    },
+    botao: {
+        justifyContent: "center",
+        width: 100,
+        height: 100,
+        backgroundColor: "pinkg"
     }
 })
