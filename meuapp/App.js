@@ -1,32 +1,58 @@
 import { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, Image, TouchableOpacity SafeAreaView} from 'react-native';
 
 export default function App() {
-    const [name, setName] = useState('')
-    const [input, setInput] = useState('')
-    
+    const [img, setImg] = useState(require('./src/biscoito.png'))
+    const [text, setText] = useState('')
 
-    function entrar() {
-        if(input === '') {
-            alert("Digite seu nome!")
-            return
-        }
+    let frases = [
+        "Siga os bons e aprenda com eles",
+        "Seja honesto e ganhará o mundo",
+        "Seja torcedor do palmeiras e seja eternamente feliz",
+        "A maior barreira para o sucesso é o medo do fracasso",
+        "Deixa de lado as preocupações e seja feliz"
+    ]
 
-        setName(`Bem-vindo ${input}`)
+    function quebraBiscoito() {
+        const randomIndex = Math.floor(Math.random() * frases.length)
+
+        setImg(require('./src/biscoito-quebrado.jpg'))
+        setText(`"${frases[randomIndex]}"`)
+    }
+
+    function resetaBiscoito() {
+        setImg(require('./src/biscoito.png'))
+        setText("")
     }
     
     return (
-        <View style={styles.container}>
-            <TextInput 
-                style={styles.input}
-                placeholder="Type your name"
+        <SafeAreaView>
+            <StatusBar />
+
+            <Image
+                source={img}
+                style={styles.img}
             />
 
-            <Button title="Entrar" onPress={entrar} />
+            <Text style={styles.texto}> {text} </Text>
+            <TouchableOpacity
+                style={[styles.botao, {marginTop: 40}, {borderColor: "black"}]}
+                onPress={quebraBiscoito}
+            >
+                <View style={styles.btnarea}>
+                    <Text style={styles.btntexto}>Quebrar Biscoito</Text>
+                </View>
+            </TouchableOpacity>
 
-            <Text style={{styles.texto}}>{name}</Text>
-        </View>
+            <TouchableOpacity
+                style={[styles.botao, {borderColor: "black"}]}
+                onPress={resetaBiscoito}
+            >
+                <View style={styles.btnarea}>
+                    <Text style={styles.btntexto}>Resetar Biscoito</Text>
+                </View>
+            </TouchableOpacity>
+        </SafeAreaView>
     );
 }
 
@@ -34,15 +60,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 68
-    },
-    input:  {
-        height: 45,
-        borderWidth: 1,
-        padding: 10,
-        fontSize: 20             
-    },
-    texto: {
-        textAlign: center,
-        fontSize: 25
     }
 })
