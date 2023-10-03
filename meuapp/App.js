@@ -4,7 +4,7 @@ import { StatusBar, StyleSheet, Text, View, ScrollView} from 'react-native';
 export default function App() {
     return (
         <View style={styles.container}>
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
                 <View style={styles.box1}></View>
                 <View style={styles.box2}></View>
                 <View style={styles.box3}></View>
