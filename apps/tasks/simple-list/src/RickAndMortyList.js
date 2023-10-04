@@ -75,6 +75,13 @@ export default function RickAndMorty() {
               <Text>Espécie: {selectedCharacter.species}</Text>
             </View>
 
+            <View style={{flex: 10}}>
+              <FlatList
+                data={characters}
+                renderItem={renderCharacter}
+              />
+            </View>
+
             <View style={{paddingHorizontal: 20}}>
               <TouchableOpacity
                 style={styles.loadButton}
@@ -87,13 +94,6 @@ export default function RickAndMorty() {
                   <Text style={{fontSize: 19}}>Carregar outros</Text>
                 </View>
               </TouchableOpacity>
-            </View>
-
-            <View style={{flex: 10}}>
-              <FlatList
-                data={characters}
-                renderItem={renderCharacter}
-              />
             </View>
           </View>
        )
@@ -126,14 +126,11 @@ const styles = StyleSheet.create({
   loadButton: {
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#95E872',
+    borderColor: '#214969',
+    backgroundColor: '#4EAAF5',
     marginTop: 20,
     marginBottom: 10,
     padding: 9,
     borderRadius: 10
-  },
-  utils: {
-    textAlignCenter: {textAlign: 'center'},
-    bigFontSize: {fontSize: 30}
   }
 })
