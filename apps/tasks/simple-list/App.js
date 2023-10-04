@@ -13,6 +13,7 @@ export default function App() {
       <Text 
         style={{
           fontSize: 18,
+          marginVertical: 10,
           textAlign: 'center',
           paddingVertical: 10,
           paddingBottom: 20
