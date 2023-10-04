@@ -64,7 +64,8 @@ export default function RickAndMorty() {
                 flex: 3,
                 alignItems: 'center',
                 justifyContent: 'center',
-                paddingVertical: 30
+                paddingVertical: 30,
+                paddingBottom: 50
             }}>
               <Image
                 source={{uri: selectedCharacter.image}}
