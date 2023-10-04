@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
 export default function App() {
-    const [img, setImg] = useState(require('./assets/cookies.jpeg'))
-    const [phrase, setPhrase] = useState()
+    const [img, setImg] = useState(require('./assets/biscoito.png'))
+    const [phrase, setPhrase] = useState('')
+    const [currentIndex, setCurrentIndex] = useState(0)
+
     const phrases = [
         'você deu sorte!',
         'muito bom',
@@ -12,15 +14,20 @@ export default function App() {
     ]
 
     function quebraBiscoito() {
-        const randomIndex = Math.floor(Math.random() * phrases.length)
+        let randomIndex
 
-        setPhrase(phrases[randomIndex])
-        setImg(require('./assets/cookies-mastigado.jpeg'))
+        do {
+            randomIndex = Math.floor(Math.random() * phrases.length)
+        } while(randomIndex === currentIndex)
+
+        setCurrentIndex(randomIndex)
+        setPhrase(phrases[currentIndex])
+        setImg(require('./assets/biscoito-quebrado.jpg'))
     }
 
     function resetaBiscoito() {
         setPhrase('')
-        setImg(require('./assets/cookies.jpeg'))
+        setImg(require('./assets/biscoito.png'))
     }
 
     return (

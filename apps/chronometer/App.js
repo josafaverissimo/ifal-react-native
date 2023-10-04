@@ -61,12 +61,12 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Image style={{width: 250, height: 250}} source={require('./src/clock.gif')} />
+      <Image style={{width: 250, height: 250}} source={require('./assets/clock.gif')} />
 
       <Text style={styles.timer}>{numero}</Text>
 
       <View style={styles.btnArea}>
-        <TouchableOpacity style={sSn} onPress={vai}>
+        <TouchableOpacity style={styles.btn} onPress={vai}>
           <Text style={styles.btnTexto}>{botao}</Text>          
         </TouchableOpacity>
 
