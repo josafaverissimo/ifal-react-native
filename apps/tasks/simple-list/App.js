@@ -1,20 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import RickAndMortyList from './src/RickAndMortyList';
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        animated={true}
+        backgroundColor={"#95E872"}
+        barStyle={"dark-content"}
+      />
+      <Text 
+        style={{
+          fontSize: 18,
+          textAlign: 'center',
+          paddingVertical: 10,
+          paddingBottom: 20
+        }}>
+          Personagens Aleatórios de Rick and Morty
+        </Text>
+
+      <View style={{flex: 10}}>
+        <RickAndMortyList />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#f0f0f0"
   },
 });
