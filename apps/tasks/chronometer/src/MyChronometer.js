@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 
-let date = new Date(0,0)
+const [YEAR_ZERO, MONTH_ZERO] = [0, 0]
+let date = new Date(YEAR_ZERO, MONTH_ZERO)
 let timerInterval = null
+const baseTimestamp = date.getTime()
+
+date.setTime(date.getTime() + (1000 * 60 * 60 * 24))
 
 export default function MyChronometer() {
   const [timerText, setTimerText] = useState("00:00:00")
@@ -21,10 +25,22 @@ export default function MyChronometer() {
     setStartOrPauseButtonLabel("⏸")    
   }
 
+  function getPastDaysHours() {
+    const SECONDS = 1000
+    const MINUTES = 60
+    const HOURS = 60
+    
+    return Math.floor(
+      (date.getTime() - baseTimestamp) / SECONDS / MINUTES / HOURS
+    )
+  }
+
   function getFormattedDate() {
     const seconds = String(date.getSeconds()).padStart(2, '00')
     const minutes = String(date.getMinutes()).padStart(2, '00')
-    const hours = String(date.getHours()).padStart(2, '00')
+
+    const pastDaysHours = getPastDaysHours()
+    const hours = String(date.getHours() + pastDaysHours).padStart(2, '00')
 
     return `${hours}:${minutes}:${seconds}`
   }
