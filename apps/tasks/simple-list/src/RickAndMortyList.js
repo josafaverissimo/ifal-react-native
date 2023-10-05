@@ -62,6 +62,7 @@ export default function RickAndMorty() {
             <View
               style={{
                 flex: 3,
+                flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingVertical: 30,
@@ -69,11 +70,22 @@ export default function RickAndMorty() {
             }}>
               <Image
                 source={{uri: selectedCharacter.image}}
-                style={{width: 150, height: 150}}
+                style={{
+                  borderWidth: 2,
+                  borderColor: "#0f0f0f",
+                  borderRadius: 150,
+                  width: 150,
+                  height: 150
+                }}
               />
-              <Text>Nome: {selectedCharacter.name}</Text>
-              <Text>Gênero: {selectedCharacter.gender}</Text>
-              <Text>Espécie: {selectedCharacter.species}</Text>
+
+              <View style={{
+                marginLeft: 10
+              }}>
+                <Text>Nome: {selectedCharacter.name}</Text>
+                <Text>Gênero: {selectedCharacter.gender}</Text>
+                <Text>Espécie: {selectedCharacter.species}</Text>
+              </View>
             </View>
 
             <View style={{flex: 10}}>
@@ -127,8 +139,8 @@ const styles = StyleSheet.create({
   loadButton: {
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#214969',
-    backgroundColor: '#4EAAF5',
+    borderColor: '#436933',
+    backgroundColor: '#95E872',
     marginTop: 20,
     marginBottom: 10,
     padding: 9,
