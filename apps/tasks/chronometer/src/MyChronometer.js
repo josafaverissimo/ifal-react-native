@@ -6,8 +6,6 @@ let date = new Date(YEAR_ZERO, MONTH_ZERO)
 let timerInterval = null
 const baseTimestamp = date.getTime()
 
-date.setTime(date.getTime() + (1000 * 60 * 60 * 24))
-
 export default function MyChronometer() {
   const [timerText, setTimerText] = useState("00:00:00")
   const [lastTime, setLastTime] = useState(null)
