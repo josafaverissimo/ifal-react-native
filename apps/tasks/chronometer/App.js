@@ -1,4 +1,4 @@
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 import MyChronometer from './src/MyChronometer';
 
 export default function App() {
@@ -7,7 +7,7 @@ export default function App() {
       <StatusBar
         backgroundColor={'#7243E8'}
       />
-      
+
       <View style={{flex: 1}}>
         <MyChronometer />
       </View>
