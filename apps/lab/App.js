@@ -1,77 +1,60 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TextInput, Switch } from 'react-native';
+import { Picker } from '@react-native-picker/picker'
+import { useState } from 'react'
 
-export default function App() {
-  const [img, setImg] = useState(require('./src/biscoito.png'))
-  const [text, setText] = useState('')
-  const [buttonColor, setButtonColor] = useState('red')
 
-  const phrases = [
-    "Siga a luz",
-    "Siga em frente, olhe para o lado",
-    "Vigia!"
-  ]
+export default function Form() {
+    const [nameInput, setNameInput] = useState('')
+    const [ageInput, setAgeInput] = useState('')
+    const [selectedSex, setSelectedSex] = useState()
+    const [isStudent, setIsStudent] = useState(false)
 
-  function breakBiscuit() {
-    const randomIndex = Math.floor(Math.random() * phrases.length)
-    setButtonColor('blue')
+    return (
+        <SafeAreaView style={styles.container}>
+            <View style={{ flexDirection: 'row' }}>
+                <Text>Nome: </Text>
+                <TextInput
+                    value={nameInput}
+                    onChangeText={text => setNameInput(text)}
+                    style={{ paddingLeft: 50, paddingRight: 50, borderWidth: 1, borderColor: 'black' }}
+                />
+            </View>
 
-    setTimeout(() => {
-      setButtonColor('red')
-    }, 100)
+            <View style={{ flexDirection: 'row' }}>
+                <Text>Idade: </Text>
+                <TextInput
+                    value={ageInput}
+                    onChangeText={text => setAgeInput(text)}
+                    style={{ paddingLeft: 50, paddingRight: 50, borderWidth: 1, borderColor: 'black' }}
+                />
+            </View>
 
-    setText(phrases[randomIndex])
-  }
-    
-  return (
-    <View style={styles.container}>
-      <Text>{text}</Text>
-      <TouchableWithoutFeedback onPress={breakBiscuit}>
-        <View style={{
-          backgroundColor: buttonColor,
-          padding: 10
-      }}>
-          <Text>Hello world</Text>
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
-  );
+            <View>
+                <Picker
+                    selectedValue={'java'}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setSelectedSex(itemValue)
+                    }>
+                    <Picker.Item label="Java" value="java" />
+                    <Picker.Item label="JavaScript" value="js" />
+                </Picker>
+            </View>
+
+            <View style={{ flexDirection: 'row' }}>
+                <Text>Estudante: </Text>
+                <Switch
+                    value={isStudent}
+                    onValueChange={value => setIsStudent(value)}
+                />
+            </View>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    block: {
-      flex: 1,
-    },
-    input: {
-      height: 45,
-      borderWidth: 1,
-      margin: 10,
-      padding: 10,
-      fontSize: 20,
-      borderRadius: 10
-    },
-    text: {
-      textAlign: 'center',
-      fontSize: 25
-    },
-    border: {
-      height: 10,
-      backgroundColor: 'grey'
-    },
-    colors: {
-      blue: {
-        backgroundColor: '#3af'
-      },
-      yellow: {
-        backgroundColor: '#ff5'
-      },
-      purple: {
-        backgroundColor: '#88f'
-      }
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
-})
+});
