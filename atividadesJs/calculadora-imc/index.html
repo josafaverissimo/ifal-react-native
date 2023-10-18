@@ -184,7 +184,7 @@
 
                     const imc = String(calculateImc().toFixed(2)).replace(".", ",")
 
-                    output.append(`Seu IMC é de: ${imc}. Diagnóstico: ${getHealthyStatus(imc)}`)
+                    output.append(`Seu IMC é de: ${imc}. Diagnóstico: ${getHealthyStatus(calculateImc())}`)
                 })
 
 
