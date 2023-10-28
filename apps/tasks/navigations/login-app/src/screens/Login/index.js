@@ -13,6 +13,9 @@ import {
 const users = {
   josafa: {
     password: '12345'
+  },
+  honeyPooh: {
+    password: '54321'
   }
 }
 
@@ -28,7 +31,7 @@ export default function Login({ navigation }) {
     if(users[username]?.password === password) {
       navigation.navigate('Home', {
         isLogged: true,
-        username: users[username]
+        username: username
       })
 
       return
