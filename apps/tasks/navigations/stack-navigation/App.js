@@ -1,15 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import Home from './src/screens/Home'
+import CharDetails from './src/screens/CharDetails'
+
+
 const Stack = createNativeStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Notifications" component={NotificationsScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+    <Stack.Navigator initialRouteName='Home'>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="CharDetails" component={CharDetails} />
     </Stack.Navigator>
   );
 }
