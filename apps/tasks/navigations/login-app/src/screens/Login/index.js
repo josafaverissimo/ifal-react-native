@@ -5,7 +5,7 @@ import { useState } from 'react'
 import {
   View,
   Text,
-  Button,
+  TouchableOpacity,
   TextInput,
   Alert
 } from 'react-native'
@@ -42,29 +42,32 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.form}>
-        <Text style={styles.title}>Login Page</Text>
+      <View style={styles.middle}>
+        <View style={[styles.form, {width: '70%'}]}>
+          <Text style={styles.title}>Insira suas credenciais</Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder='Digite seu usuário'
-          value={username}
-          onChangeText={setUsername}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder='Digite seu usuário'
+            value={username}
+            onChangeText={setUsername}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder='Digite sua senha'
-          secureTextEntry={true}
-          value={password}
-          onChangeText={setPassword}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder='Digite sua senha'
+            secureTextEntry={true}
+            value={password}
+            onChangeText={setPassword}
+          />
+        </View>
       </View>
 
-      <Button
-        title='Login'
-        onPress={doLogin}
-      />
+      <TouchableOpacity style={styles.loginButton} onPress={doLogin}>
+        <View>
+          <Text style={styles.loginButtonText}>Login</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }

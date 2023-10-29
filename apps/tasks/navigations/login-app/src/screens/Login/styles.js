@@ -21,5 +21,19 @@ export default StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 10,
     marginBottom: 8
+  },
+  loginButton: {
+    padding: 10,
+    backgroundColor: '#fa4',
+    alignItems: 'center'
+  },
+  loginButtonText: {
+    fontSize: 27
+  },
+  middle: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
