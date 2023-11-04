@@ -1,10 +1,10 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { createStackNavigator } from "@react-navigation/stack"
 
 import HomeScreen from './screens/HomeScreen'
 import WorthItScreen from './screens/WorthItScreen'
 
 
-const Stack = createNativeStackNavigator()
+const Stack = createStackNavigator()
 
 export default function Router() {
   return (
@@ -13,7 +13,11 @@ export default function Router() {
       screenOptions={{headerShown: false}}
     >
       <Stack.Screen name='HomeScreen' component={HomeScreen} />
-      <Stack.Screen name='WorthItScreen' component={WorthItScreen}/>
+      <Stack.Screen
+        name='WorthItScreen'
+        component={WorthItScreen}
+        options={{presentation: 'modal'}}
+      />
     </Stack.Navigator>
   )
 }
