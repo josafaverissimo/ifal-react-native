@@ -9,10 +9,10 @@ import {
 } from 'react-native'
 
 
-export default function WorthItScreen({ route, navigation }) {
+export default function WhatIsBetter({ route, navigation }) {
   const { alcoholValue, gasolineValue } = route.params
 
-  const whatWorthIt = () => {
+  const whatIsBetter = () => {
     const result = alcoholValue / gasolineValue
 
     return result < 0.7 ? 'Álcool' : 'Gasolina'
@@ -41,7 +41,7 @@ export default function WorthItScreen({ route, navigation }) {
             styles.textColorGreen
           ]}
         >
-          Compensa usar {whatWorthIt()}
+          Compensa usar {whatIsBetter()}
         </Text>
       </View>
 

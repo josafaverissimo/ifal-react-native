@@ -33,7 +33,7 @@ export default function HomeScreen({ navigation }) {
       return
     }
 
-    navigation.navigate('WorthItScreen', {
+    navigation.navigate('WhatIsBetterScreen', {
       alcoholValue: Number(alcoholInputValue),
       gasolineValue: Number(gasolineInputValue)
     })

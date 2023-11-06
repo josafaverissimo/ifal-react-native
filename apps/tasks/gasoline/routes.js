@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack"
 
 import HomeScreen from './screens/HomeScreen'
-import WorthItScreen from './screens/WorthItScreen'
+import WhatIsBetter from './screens/WhatIsBetter'
 
 
 const Stack = createStackNavigator()
@@ -14,9 +14,8 @@ export default function Router() {
     >
       <Stack.Screen name='HomeScreen' component={HomeScreen} />
       <Stack.Screen
-        name='WorthItScreen'
-        component={WorthItScreen}
-        options={{presentation: 'modal'}}
+        name='WhatIsBetterScreen'
+        component={WhatIsBetter}
       />
     </Stack.Navigator>
   )
