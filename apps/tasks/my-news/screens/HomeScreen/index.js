@@ -95,7 +95,7 @@ export default function HomeScreen({navigation}) {
           <Feather style={styles.news.actions.icon} name="send"/>
         </View>
         
-        <TouchableOpacity onPress={goToNews}>
+        <TouchableOpacity onPress={() => goToNews(item)}>
           <View style={styles.news.textWrapper}>
             <Text style={styles.news.author}>{author}</Text>
             <Text style={styles.news.title}>{title}</Text>
