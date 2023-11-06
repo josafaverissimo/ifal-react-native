@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
     return true
   }
 
-  const navigateToWorthItScreen = () => {
+  const navigateToWhatIsBetterScreen = () => {
     if(!validForm()) {
       Alert.alert('Dados inválidos', 'Preencha todos campos corretamente.')
 
@@ -97,7 +97,7 @@ export default function HomeScreen({ navigation }) {
 
         <TouchableOpacity
           style={styles.submitButton}
-          onPress={navigateToWorthItScreen}
+          onPress={navigateToWhatIsBetterScreen}
         >
           <View>
             <Text
